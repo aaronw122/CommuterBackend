@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config({ path: `${__dirname}/.env` });
+
 import cleanTrainData from './cleanTrainData.json'
 
 export interface TrainStop {
@@ -11,9 +15,6 @@ export async function fetchTrainStops(routeId: string | number | null, direction
 
     let direction1: string
     let direction2: string
-
-    console.log("fetching train stops...")
-
 
     return (cleanTrainData as any[])
         .filter(stop => {
@@ -31,18 +32,11 @@ export async function fetchTrainStops(routeId: string | number | null, direction
 
                 const routeMatch = stop.route_id === routeId
 
-                console.log("route match(should be true)", routeMatch);
-                console.log(direction1);
-
                 const directionMatch1 = stop.stop_headsign?.toLowerCase().includes(direction1.toLowerCase()) ||
                     stop.stop_headsign === direction1;
 
-                console.log("directionmatch1:", directionMatch1);
-
                 const directionMatch2 = stop.stop_headsign?.toLowerCase().includes(direction2.toLowerCase()) ||
                     stop.stop_headsign === direction2;
-
-                console.log("directionmatch2:", directionMatch2);
 
                 return routeMatch && (directionMatch1 || directionMatch2)
             }

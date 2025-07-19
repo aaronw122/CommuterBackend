@@ -1,4 +1,7 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: `${__dirname}/.env` });
+
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import {
@@ -25,7 +28,7 @@ app.get("/api/healthz", (_req: Request, res: Response) => {
 // CTA BUS ENDPOINTS
 
 // GET /api/bus/directions?routeId=20
-app.get("/api/bus/directions", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/bus/directions", async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
         // Extract and validate routeId
         const routeIdParam = req.query.routeId;
@@ -44,7 +47,7 @@ app.get("/api/bus/directions", async (req: Request, res: Response, next: NextFun
 });
 
 // GET /api/bus/stops?routeId=20&direction=Northbound
-app.get("/api/bus/stops", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/bus/stops", async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
         // Extract and validate parameters
         const routeIdParam = req.query.routeId;
@@ -69,7 +72,7 @@ app.get("/api/bus/stops", async (req: Request, res: Response, next: NextFunction
 });
 
 // GET /api/bus/times?routeId=20&direction=Northbound&stopId=1234
-app.get("/api/bus/times", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/bus/times", async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
         // Extract and validate parameters
         const routeIdParam = req.query.routeId;
@@ -102,7 +105,7 @@ app.get("/api/bus/times", async (req: Request, res: Response, next: NextFunction
 
 // CTA TRAIN ENDPOINTS
 // GET /api/train/stops?routeId=Red&direction=Northbound
-app.get("/api/train/stops", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/train/stops", async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
         // Extract and validate parameters
         const routeIdParam = req.query.routeId;
@@ -127,7 +130,7 @@ app.get("/api/train/stops", async (req: Request, res: Response, next: NextFuncti
 });
 
 // GET /api/train/times?stopId=30119
-app.get("/api/train/times", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/train/times", async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
         // Extract and validate parameters
         const stopIdParam = req.query.stopId;
