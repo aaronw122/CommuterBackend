@@ -1,7 +1,3 @@
-import dotenv from 'dotenv';
-
-dotenv.config({ path: `${__dirname}/.env` });
-
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import {
@@ -14,7 +10,7 @@ import {
     fetchTrainTimes
 } from "./trainService";
 
-const PORT = Number(process.env.PORT) || 8080;
+const PORT = Number(Bun.env.PORT) || 8080;
 const app = express();
 
 app.use(cors());
@@ -111,6 +107,9 @@ app.get("/api/train/stops", async (req: Request, res: Response, next: NextFuncti
         const routeIdParam = req.query.routeId;
         const directionParam = req.query.direction;
 
+        console.log("routeId:",req.query.routeId);
+        console.log("routeId:",req.query.direction);
+
         if (!routeIdParam) {
             return res.status(400).json({ error: "missing routeId" });
         }
@@ -122,7 +121,12 @@ app.get("/api/train/stops", async (req: Request, res: Response, next: NextFuncti
         const routeId: string = String(routeIdParam);
         const direction: string = String(directionParam);
 
+        console.log("routeId:",routeId);
+
         const stops = await fetchTrainStops(routeId, direction);
+
+        console.log("should show train stops:", stops);
+
         res.json(stops);
     } catch (err) {
         next(err);

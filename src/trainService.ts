@@ -1,7 +1,3 @@
-import dotenv from 'dotenv';
-
-dotenv.config({ path: `${__dirname}/.env` });
-
 import cleanTrainData from './cleanTrainData.json'
 
 export interface TrainStop {
@@ -9,7 +5,7 @@ export interface TrainStop {
     label: string;
 }
 
-const TRAIN_KEY = process.env.TRAIN_KEY ?? '';
+const TRAIN_KEY = Bun.env.TRAIN_KEY ?? '';
 
 export async function fetchTrainStops(routeId: string | number | null, direction: string): Promise<TrainStop[]>{
 
@@ -44,6 +40,8 @@ export async function fetchTrainStops(routeId: string | number | null, direction
             else {
                 const routeMatch = stop.route_id === routeId
 
+                //console.log("should be true", routeMatch);
+
                 // More flexible direction matching - case insensitive and partial match
                 const directionMatch = stop.stop_headsign?.toLowerCase().includes(direction.toLowerCase()) ||
                     stop.stop_headsign === direction;
@@ -51,7 +49,6 @@ export async function fetchTrainStops(routeId: string | number | null, direction
                 return routeMatch && directionMatch;
             }
             // More flexible route matching - handle different formats
-
         })
         .sort((a, b) => (a.stop_sequence || 0) - (b.stop_sequence || 0))
         .map(stop => ({
