@@ -165,8 +165,10 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     res.status(500).json({ error: "internal-server-error" });
 });
 
-app.listen(PORT, "0.0.0.0", () => {
-    // eslint-disable-next-line no-console
-    console.log(`🚂  Backend running at http://localhost:${PORT}`);
+Bun.serve({
+    port: PORT,
+    hostname: "0.0.0.0",
+    fetch: app.fetch,
 });
+console.log(`🚂  Backend running at http://0.0.0.0:${PORT}`);
 

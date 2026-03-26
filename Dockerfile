@@ -14,5 +14,5 @@ WORKDIR /CommuterBackend
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 COPY src ./src
-EXPOSE 3000
+EXPOSE 8080
 CMD ["bun", "src/index.ts"]
