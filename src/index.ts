@@ -10,7 +10,7 @@ import {
     fetchTrainTimes
 } from "./trainService";
 
-const PORT = Number(Bun.env.PORT) || 8080;
+const PORT = Number(process.env.PORT) || 8080;
 const app = express();
 
 app.use(cors());
@@ -165,7 +165,7 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     res.status(500).json({ error: "internal-server-error" });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     // eslint-disable-next-line no-console
     console.log(`🚂  Backend running at http://localhost:${PORT}`);
 });

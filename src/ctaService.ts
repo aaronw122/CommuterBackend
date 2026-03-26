@@ -20,7 +20,7 @@ export interface SimpleRoute {
 const CTA_BASE_URL = "https://www.ctabustracker.com/bustime/api/v3"
 // Bun automatically loads variables from .env into both Bun.env and Bun.env.
 // We prefer Bun.env here so this file works in both Bun and Node.
-const CTA_KEY = Bun.env.CTA_KEY ?? '';
+const CTA_KEY = process.env.CTA_KEY ?? '';
 
 export interface RawCtaDirection {
     id: string;
@@ -72,7 +72,6 @@ export interface RawCtaStop {
 export interface CtaApiResponseStop {
     "bustime-response":{
         stops: RawCtaStop[] & Array<Record<string, unknown>>;
-        // ask leo about this
     }
 }
 

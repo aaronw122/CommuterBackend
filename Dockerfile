@@ -10,7 +10,7 @@ RUN apt-get update -y \
     && rm -rf /var/lib/apt/lists/*
 
 ENV TZ=America/Chicago
-WORKDIR /server
+WORKDIR /CommuterBackend
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 COPY src ./src

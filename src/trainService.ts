@@ -5,7 +5,7 @@ export interface TrainStop {
     label: string;
 }
 
-const TRAIN_KEY = Bun.env.TRAIN_KEY ?? '';
+const TRAIN_KEY = process.env.TRAIN_KEY ?? '';
 
 export async function fetchTrainStops(routeId: string | number | null, direction: string): Promise<TrainStop[]>{
 
