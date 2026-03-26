@@ -1,3 +1,4 @@
+import { createServer } from "http";
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import {
@@ -165,10 +166,8 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     res.status(500).json({ error: "internal-server-error" });
 });
 
-Bun.serve({
-    port: PORT,
-    hostname: "0.0.0.0",
-    fetch: app.fetch,
+const server = createServer(app);
+server.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚂  Backend running on port ${PORT}`);
 });
-console.log(`🚂  Backend running at http://0.0.0.0:${PORT}`);
 
